@@ -2,11 +2,30 @@ const express = require('express')
 
 const app = express()
 
+// 中间件 --- 防盗链
+function guardPic(request,response,next) {
+  if(request.get('Referer')) {
+    let miniReferer = request.get('Referer').split('/')[2]
+    console.log(miniReferer);
+    if(miniReferer === 'localhost:5501') {
+      next()
+    } else {
+      response.sendFile(__dirname+'/public/err.jpg')
+    }
+  } else {
+    next()
+  }
+}
+
 app.get('/',(request,response) => {
   // express 封装了query
   const {query} = request
   console.log(query);
   response.send('ok')
+})
+
+app.get('/pic',guardPic,(request,response) => {
+  response.sendFile(__dirname+'/public/bg.jpg')
 })
 
 app.get('/home',(request,response) => {
