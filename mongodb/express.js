@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 
 // 中间件 --- 防盗链
+
 function guardPic(request,response,next) {
   if(request.get('Referer')) {
     let miniReferer = request.get('Referer').split('/')[2]
@@ -16,6 +17,10 @@ function guardPic(request,response,next) {
     next()
   }
 }
+// express.urlencoded({extended:true}) 作用：将post携带的参数挂载到express.body上
+app.use(express.urlencoded({extended:true}))
+
+// express.static() 不访问路由直接写文件名+后缀也能看页面
 
 app.get('/',(request,response) => {
   // express 封装了query
