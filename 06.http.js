@@ -3,7 +3,7 @@ const http = require('http')
 
 const app = http.createServer((request,response) => {
   // console.log(request.url);
-  console.log(params);
+  // 原生搭建的服务器中request对象中只能通过url截取split获取params
   response.end('ok')
 })
 
