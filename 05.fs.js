@@ -23,7 +23,7 @@ ws.write('world ')
 ws.end()
 
 // 流读（分次读取）
-var rs = fs.createReadStream(__dirname + '/ws.txt',{
+var rs = createReadStream(__dirname + '/ws.txt',{
   highWaterMark: 10 * 1024 *1024
 })
 
